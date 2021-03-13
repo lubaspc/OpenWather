@@ -1,0 +1,103 @@
+ext {
+    kotlinVersion = '1.4.20'
+    materialVersion = '1.1.0'
+
+    androidXVersion = '1.0.0'
+
+    rxJavaVersion = '3.0.2'
+    rxAndroidVersion = '3.0.0'
+
+    circleImageVersion = '3.1.0'
+
+    picassoVersion = '2.71828'
+    daggerVersion = '2.13'
+
+    junitVersion = '4.12'
+    mockitoVersion = '1.10.19'
+    hamcrestVersion = '1.1'
+    robolectricVersion = '3.0'
+    gsonVersion = '2.8.0'
+
+    retrofitVersion = '2.6.0'
+    okHttpVersion = '3.12.1'
+
+    roomVersion = "2.2.6"
+
+    dataBindingVersion = '2.3.1'
+
+
+    supportPackage = 'com.android.support'
+
+    reactivePackage = 'io.reactivex.rxjava3'
+
+    hdodenhofPackage = 'de.hdodenhof'
+    picassoPackage = 'com.squareup.picasso'
+
+    daggerPackage = 'com.google.dagger'
+    javaxPackage = 'javax.annotation'
+    gsonPackage = 'com.google.code.gson'
+
+    junitPackage = 'junit'
+    mockitoPackage = 'org.mockito'
+    hamcrestPackage = 'org.hamcrest'
+    robolectricPackage = 'org.robolectric'
+
+    retrofitPackage = 'com.squareup.retrofit2'
+    okHttpPackege = 'com.squareup.okhttp3'
+
+    roomPackage = 'androidx.room'
+
+    dataBindingPackage = 'com.android.databinding'
+
+    koltin = buildDependency('org.jetbrains.kotlin','kotlin-stdlib',kotlinVersion)
+
+    androidXdependencies = [
+            material  : buildDependency('com.google.android.material', 'material', materialVersion),
+            annotation: buildDependency('androidx.annotation', 'annotation', androidXVersion),
+            appCompat : buildDependency('androidx.appcompat', 'appcompat', androidXVersion),
+            constraintlayout: buildDependency('androidx.constraintlayout','constraintlayout','2.0.4')
+    ]
+
+    rxDependencies = [
+            rxJava   : buildDependency(reactivePackage, 'rxjava', rxJavaVersion),
+            rxAndroid: buildDependency(reactivePackage, 'rxandroid', rxAndroidVersion)]
+
+    daggerDependencies = [
+            dagger        : buildDependency(daggerPackage, 'dagger', daggerVersion),
+            daggerCompiler: buildDependency(daggerPackage, 'dagger-compiler', daggerVersion),
+            daggerAndroidProcessor: buildDependency(daggerPackage, 'dagger-android-processor', daggerVersion)
+    ]
+
+    retrofitDependecies = [
+            retrofit : buildDependency(retrofitPackage,'retrofit',retrofitVersion),
+            converterGson : buildDependency(retrofitPackage,'converter-gson',retrofitVersion),
+            converterScalars : buildDependency(retrofitPackage,'converter-scalars',retrofitVersion),
+    ]
+
+    okHttpDependencies = [
+            loggingInterceptor: buildDependency(okHttpPackege,'logging-interceptor',okHttpVersion)
+    ]
+
+    roomDependencies = [
+            roomCompiler: buildDependency(roomPackage,'room-compiler',roomVersion),
+            roomRuntime: buildDependency(roomPackage,'room-runtime',roomVersion),
+            roomKtx: buildDependency(roomPackage,'room-ktx',roomVersion),
+            roomTesting: buildDependency(roomPackage,'room-testing',roomVersion)
+    ]
+
+    circleImageView = buildDependency(hdodenhofPackage, 'circleimageview', circleImageVersion)
+    picasso = buildDependency(picassoPackage, 'picasso', picassoVersion)
+    gson = buildDependency(gsonPackage, 'gson', gsonVersion)
+
+    dataBinding = buildDependency(dataBindingPackage,'compiler',dataBindingVersion)
+
+    testingDependencies = [
+            junit      : buildDependency(junitPackage, 'junit', junitVersion),
+            mockito    : buildDependency(mockitoPackage, 'mockito-core', mockitoVersion),
+            robolectric: buildDependency(robolectricPackage, 'robolectric', robolectricVersion),
+            hamcrest   : buildDependency(hamcrestPackage, 'hamcrest-library', hamcrestVersion)]
+}
+
+static String buildDependency(String pack, String dependency, String version) {
+    return "${pack}:${dependency}:${version}"
+}
