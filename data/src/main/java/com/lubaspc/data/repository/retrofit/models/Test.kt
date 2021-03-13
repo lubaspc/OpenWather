@@ -11,7 +11,6 @@ data class Test (
 	val main : Main,
 	val visibility : Int,
 	val wind : Wind,
-	val rain : String,
 	val clouds : Clouds,
 	val dt : Int,
 	val sys : Sys,

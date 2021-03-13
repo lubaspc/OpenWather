@@ -25,8 +25,8 @@ class TestRepository(
     }
 
     override fun getTest(): Test? {
-        var test = weatherApiSource.getNewTest()
+        val test = weatherApiSource.getNewTest() ?: return null
         weatherDBSource.insertTest(test.toString())
-        return test?.toTestDomain()
+        return test.toTestDomain()
     }
 }

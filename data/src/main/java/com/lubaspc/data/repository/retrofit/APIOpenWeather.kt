@@ -1,9 +1,10 @@
 package com.lubaspc.data.repository.retrofit
 
 import android.util.Log
+import com.google.gson.Gson
 import com.google.gson.GsonBuilder
+import com.lubaspc.data.repository.retrofit.APIOpenWeather.getJson
 import com.lubaspc.data.repository.retrofit.models.Test
-import com.lubaspc.data.repository.retrofit.models.Weather
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call
@@ -21,7 +22,6 @@ object APIOpenWeather {
 
     init {
         val loggingInterceptor = HttpLoggingInterceptor()
-//        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.NONE);
         loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
         val httpClietBuilder = OkHttpClient.Builder()
             .connectTimeout(60, TimeUnit.SECONDS)
@@ -35,19 +35,10 @@ object APIOpenWeather {
                     .build()
                 chain.proceed(newRequest)
             }
-
-        // Prepare Gson instance
-
-        // Prepare Gson instance
-        val gson = GsonBuilder().create()
-
-        //Prepare retrofit instance
-
-        //Prepare retrofit instance
         val retrofit = Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(ScalarsConverterFactory.create())
-            .addConverterFactory(GsonConverterFactory.create(gson))
+            .addConverterFactory(GsonConverterFactory.create( GsonBuilder().create()))
             .client(httpClietBuilder.build())
             .build()
 
@@ -55,5 +46,12 @@ object APIOpenWeather {
     }
 
 
-    fun getWeather(): Test? = apiService.getWeather().execute().body()
+    fun getWeather(): Test? = Gson().fromJson(apiService.getWeather().execute().body()?.getJson(),Test::class.java);
+
+
+    private fun String.getJson(): String {
+        val indexInit = this.indexOf('{')
+        val indexFinish = this.lastIndexOf('}')
+        return this.substring(indexInit,indexFinish+1)
+    }
 }
