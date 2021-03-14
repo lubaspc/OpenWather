@@ -13,9 +13,11 @@ class WeatherDBSource(@Inject private val weatherDao: WeatherDao) {
         return weatherDao.getAll().map {
             it.toTest()
         }
-
     }
 
     fun insertTest(data: String) = weatherDao.insert(Weather(0, Date(), data))
 
+    fun getLastWeather(): Test?{
+        return weatherDao.getLast()?.toTest()
+    }
 }

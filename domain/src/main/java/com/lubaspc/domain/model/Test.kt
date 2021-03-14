@@ -1,4 +1,7 @@
 package com.lubaspc.domain.model
+
+import java.util.*
+
 data class Test (
 	val coord : Coord,
 	val weather : List<Weather>,
@@ -12,5 +15,6 @@ data class Test (
 	val timezone : Int,
 	val id : Int,
 	val name : String,
-	val cod : Int
+	val cod : Int,
+	var createdAt: Date
 )

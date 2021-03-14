@@ -7,9 +7,7 @@ import com.lubaspc.data.repository.datasource.WeatherApiSource
 import com.lubaspc.data.repository.datasource.WeatherDBSource
 import com.lubaspc.data.repository.retrofit.APIOpenWeather
 import com.lubaspc.data.repository.room.DBRoom
-import com.lubaspc.data.repository.room.dao.WeatherDao
-import com.lubaspc.domain.usecase.GetTest
-import com.lubaspc.domain.usecase.GetTests
+import com.lubaspc.domain.usecase.TestUseCase
 import com.lubaspc.testopenweather.App
 import dagger.Module
 import dagger.Provides
@@ -34,11 +32,7 @@ class MainModule(private val app: App) {
 
     @Provides
     @Singleton
-    fun provideGetTest(testRepository: TestRepository) = GetTest(testRepository)
-
-    @Provides
-    @Singleton
-    fun provideGetTests(testRepository: TestRepository) = GetTests(testRepository)
+    fun provideTestUseCase(testRepository: TestRepository) = TestUseCase(testRepository)
 
 
     @Provides

@@ -6,22 +6,51 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 
-object FragmentUtils{
-
-    fun addFragment(
+    fun FrameLayout.addFragment(
         transaction: FragmentTransaction,
         fragment: Fragment,
         TAG_FRAGMENT: String,
-        frameLayout: FrameLayout
     ) {
         transaction.add(
-            frameLayout.id,
+            this.id,
             fragment,
             TAG_FRAGMENT
         )
         transaction.addToBackStack(TAG_FRAGMENT)
         transaction.commit()
     }
+
+fun FrameLayout.addFragment(
+    transaction: FragmentTransaction,
+    fragments: Array<Fragment>,
+    TAGS_FRAGMENT: Array<String>,
+) {
+    for(i in fragments.indices){
+        transaction.add(
+            this.id,
+            fragments[i],
+            TAGS_FRAGMENT[i]
+        )
+        transaction.addToBackStack(TAGS_FRAGMENT[i])
+    }
+    transaction.commit()
+}
+
+    fun FrameLayout.replaceFragment(
+        transaction: FragmentTransaction,
+        fragment: Fragment,
+        TAG_FRAGMENT: String?,
+    ) {
+        transaction.replace(
+            this.id,
+            fragment,
+            TAG_FRAGMENT
+        )
+        transaction.addToBackStack(TAG_FRAGMENT)
+        transaction.commit()
+    }
+
+object FragmentUtils {
 
     fun showFragment(
         transaction: FragmentTransaction,
@@ -31,26 +60,22 @@ object FragmentUtils{
         transaction.commit()
     }
 
-    fun replaceFragment(
+    fun hideFragment(
         transaction: FragmentTransaction,
-        fragment: Fragment,
-        TAG_FRAGMENT: String?,
-        frameLayout: FrameLayout
+        fragment: Fragment
     ) {
-        transaction.replace(
-            frameLayout.id,
-            fragment,
-            TAG_FRAGMENT
-        )
-        transaction.addToBackStack(TAG_FRAGMENT)
+        transaction.hide(fragment)
         transaction.commit()
     }
 
-    fun getByTag(
-        fragmentManager: FragmentManager,
-        TAG: String
-    ): Fragment? {
-        return fragmentManager.findFragmentByTag(TAG)
+    fun toggleFragment(
+        transaction: FragmentTransaction,
+        fragmentShow: Fragment,
+        fragmentHide: Fragment
+    ) {
+        transaction.hide(fragmentHide)
+        transaction.show(fragmentShow)
+        transaction.commit()
     }
 
     fun removeFragment(
@@ -58,14 +83,6 @@ object FragmentUtils{
         fragment: Fragment
     ) {
         transaction.remove(fragment)
-        transaction.commit()
-    }
-
-    fun hideFragment(
-        transaction: FragmentTransaction,
-        fragment: Fragment
-    ) {
-        transaction.hide(fragment)
         transaction.commit()
     }
 
@@ -78,6 +95,12 @@ object FragmentUtils{
         transaction.commit()
     }
 
+    fun getByTag(
+        fragmentManager: FragmentManager,
+        TAG: String
+    ): Fragment? {
+        return fragmentManager.findFragmentByTag(TAG)
+    }
 
     fun popBackStackImmediate(fragmentManager: FragmentManager) {
         fragmentManager.popBackStackImmediate()

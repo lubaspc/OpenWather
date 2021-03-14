@@ -6,7 +6,7 @@ import java.util.*
 
 @Entity(tableName = "weather")
 data class Weather(
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     var id: Long,
     var createdAt: Date,
     var modelString: String

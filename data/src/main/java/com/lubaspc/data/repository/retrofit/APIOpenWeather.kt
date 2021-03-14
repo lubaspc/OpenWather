@@ -1,15 +1,10 @@
 package com.lubaspc.data.repository.retrofit
 
-import android.util.Log
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
-import com.lubaspc.data.repository.retrofit.APIOpenWeather.getJson
 import com.lubaspc.data.repository.retrofit.models.Test
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
@@ -45,9 +40,7 @@ object APIOpenWeather {
         apiService = retrofit.create(OpenWeatherService::class.java)
     }
 
-
     fun getWeather(): Test? = Gson().fromJson(apiService.getWeather().execute().body()?.getJson(),Test::class.java);
-
 
     private fun String.getJson(): String {
         val indexInit = this.indexOf('{')

@@ -6,7 +6,9 @@ import com.lubaspc.data.repository.room.entities.Weather
 import com.lubaspc.domain.model.Test
 
 fun Weather.toTest(): Test =
-    Gson().fromJson<Test>(this.modelString,Test::class.java)
+    Gson().fromJson<Test>(this.modelString,Test::class.java).apply {
+        createdAt = this@toTest.createdAt
+    }
 
 fun com.lubaspc.data.repository.retrofit.models.Test.toTestDomain(): Test
     = Gson().fromJson<Test>(this.toString(),Test::class.java)

@@ -4,7 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="showProgress"
+            type="java.lang.Boolean" />
+        <import type="android.view.View"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -45,6 +48,28 @@
             app:layout_constraintBottom_toBottomOf="@id/fb_map"
             app:layout_constraintStart_toEndOf="@id/fb_list"
             app:layout_constraintEnd_toEndOf="parent" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:visibility="@{showProgress ? View.VISIBLE : View.GONE}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintWidth_percent="0.5"
+            app:layout_constraintDimensionRatio="1:1"
+            app:cardCornerRadius="16dp"
+            style="@style/ProgressDialog"
+            >
+
+            <ProgressBar
+                android:id="@+id/progress"
+                android:layout_margin="32dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </com.google.android.material.card.MaterialCardView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
