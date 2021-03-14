@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.lubaspc.domain.model.Test
 import com.lubaspc.domain.usecase.TestUseCase
 import com.lubaspc.testopenweather.App
@@ -12,15 +11,15 @@ import com.lubaspc.testopenweather.R
 import com.lubaspc.testopenweather.databinding.ActivityMainBinding
 import com.lubaspc.testopenweather.ui.presenter.MainActivityPresenter
 import com.lubaspc.testopenweather.ui.view.dialog.WeatherDialog
-import com.lubaspc.testopenweather.ui.view.fragment.ListFragment
-import com.lubaspc.testopenweather.ui.view.fragment.MapsFragment
+import com.lubaspc.testopenweather.ui.view.fragment.OtherFragment
+import com.lubaspc.testopenweather.ui.view.fragment.MapsViewFragment
 import com.lubaspc.testopenweather.utils.FragmentEnum
 import com.lubaspc.testopenweather.utils.addFragment
 import com.lubaspc.testopenweather.utils.replaceFragment
 import javax.inject.Inject
 
-class MainActivity : AppCompatActivity(), ListFragment.ListFragmentHandle
-    , MapsFragment.MapFragmentHandle {
+class MainActivity : AppCompatActivity(), OtherFragment.ListFragmentHandle
+    , MapsViewFragment.MapFragmentHandle {
 
 
     @Inject
@@ -30,8 +29,8 @@ class MainActivity : AppCompatActivity(), ListFragment.ListFragmentHandle
 
     private lateinit var vBind: ActivityMainBinding
 
-    private lateinit var mapFragment: MapsFragment
-    private lateinit var listFragment: ListFragment
+    private lateinit var mapViewFragment: MapsViewFragment
+    private lateinit var otherFragment: OtherFragment
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,14 +39,14 @@ class MainActivity : AppCompatActivity(), ListFragment.ListFragmentHandle
         vBind.showProgress = true
         (application as App).getMainComponent().inject(this)
 
-        mapFragment = MapsFragment(testUseCase)
-        listFragment = ListFragment(testUseCase)
+        mapViewFragment = MapsViewFragment(testUseCase)
+        otherFragment = OtherFragment(testUseCase)
         presenter = MainActivityPresenter(testUseCase)
 
         vBind.fragment = FragmentEnum.MAPS
         vBind.flContainer.addFragment(
             supportFragmentManager.beginTransaction(),
-            mapFragment,
+            mapViewFragment,
             FragmentEnum.MAPS.name)
         setupButtons()
     }
@@ -59,11 +58,11 @@ class MainActivity : AppCompatActivity(), ListFragment.ListFragmentHandle
     private fun setupButtons() {
         vBind.fbMap.setOnClickListener {
             vBind.fragment = FragmentEnum.MAPS
-            changeFragment(mapFragment,FragmentEnum.MAPS.name)
+            changeFragment(mapViewFragment,FragmentEnum.MAPS.name)
         }
         vBind.fbList.setOnClickListener {
             vBind.fragment = FragmentEnum.LIST
-            changeFragment(listFragment,FragmentEnum.LIST.name)
+            changeFragment(otherFragment,FragmentEnum.LIST.name)
         }
     }
 

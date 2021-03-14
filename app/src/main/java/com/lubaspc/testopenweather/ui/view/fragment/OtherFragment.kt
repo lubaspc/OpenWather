@@ -14,7 +14,7 @@ import com.lubaspc.testopenweather.ui.view.activity.MainActivity
 import com.lubaspc.testopenweather.ui.view.adapter.WeathersAdapter
 import com.lubaspc.testopenweather.utils.init
 
-class ListFragment(private val testUseCase: TestUseCase) : Fragment() {
+class OtherFragment(private val testUseCase: TestUseCase) : Fragment() {
     private lateinit var presenter: ListFragmentPresenter
     private lateinit var handle: ListFragmentHandle
     private lateinit var vBind : FragmentListBinding

@@ -20,7 +20,7 @@ import com.lubaspc.testopenweather.R
 import com.lubaspc.testopenweather.ui.presenter.MapFragmentPresenter
 import com.lubaspc.testopenweather.ui.view.activity.MainActivity
 
-class MapsFragment(private val testUseCase: TestUseCase) : Fragment() {
+class MapsViewFragment(private val testUseCase: TestUseCase) : Fragment() {
     private lateinit var handle: MapFragmentHandle
     private lateinit var marker: Marker
     private lateinit var presenter: MapFragmentPresenter
