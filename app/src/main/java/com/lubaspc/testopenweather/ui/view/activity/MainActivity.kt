@@ -15,6 +15,7 @@ import com.lubaspc.testopenweather.ui.view.fragment.OtherFragment
 import com.lubaspc.testopenweather.ui.view.fragment.MapsViewFragment
 import com.lubaspc.testopenweather.utils.FragmentEnum
 import com.lubaspc.testopenweather.utils.addFragment
+import com.lubaspc.testopenweather.utils.alert
 import com.lubaspc.testopenweather.utils.replaceFragment
 import javax.inject.Inject
 
@@ -47,7 +48,8 @@ class MainActivity : AppCompatActivity(), OtherFragment.ListFragmentHandle
         vBind.flContainer.addFragment(
             supportFragmentManager.beginTransaction(),
             mapViewFragment,
-            FragmentEnum.MAPS.name)
+            FragmentEnum.MAPS.name
+        )
         setupButtons()
     }
 
@@ -58,15 +60,15 @@ class MainActivity : AppCompatActivity(), OtherFragment.ListFragmentHandle
     private fun setupButtons() {
         vBind.fbMap.setOnClickListener {
             vBind.fragment = FragmentEnum.MAPS
-            changeFragment(mapViewFragment,FragmentEnum.MAPS.name)
+            changeFragment(mapViewFragment, FragmentEnum.MAPS.name)
         }
         vBind.fbList.setOnClickListener {
             vBind.fragment = FragmentEnum.LIST
-            changeFragment(otherFragment,FragmentEnum.LIST.name)
+            changeFragment(otherFragment, FragmentEnum.LIST.name)
         }
     }
 
-    private fun changeFragment(fragment: Fragment,tag:String){
+    private fun changeFragment(fragment: Fragment, tag: String) {
         vBind.showProgress = true
         vBind.flContainer.replaceFragment(
             supportFragmentManager.beginTransaction(),
@@ -89,11 +91,15 @@ class MainActivity : AppCompatActivity(), OtherFragment.ListFragmentHandle
         }
     }
 
-    override fun hideProgress() {
+    override fun hideProgress(success: Boolean) {
         vBind.showProgress = false
+        if (!success)
+            this.alert(
+                "Ocurrió un error",
+                "Revisa que tengas conexión a internet",
+                this::finish
+            )
     }
-
-
 
 
 }

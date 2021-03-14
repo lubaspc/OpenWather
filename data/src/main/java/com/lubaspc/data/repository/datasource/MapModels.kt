@@ -8,7 +8,8 @@ import java.util.*
 
 fun Weather.toTest(): Test =
     Gson().fromJson<Test>(this.modelString, Test::class.java).apply {
-        createdAt = this@toTest.createdAt
+        if(this != null)
+            createdAt = this@toTest.createdAt
     }
 
 fun com.lubaspc.data.repository.retrofit.models.Test.toTestDomain(): Test =

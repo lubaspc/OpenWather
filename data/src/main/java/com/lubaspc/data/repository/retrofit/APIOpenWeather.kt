@@ -8,6 +8,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
+import java.io.IOException
 import java.util.concurrent.TimeUnit
 
 object APIOpenWeather {
@@ -40,8 +41,15 @@ object APIOpenWeather {
         apiService = retrofit.create(OpenWeatherService::class.java)
     }
 
-    fun getWeather(): Test? =
-        Gson().fromJson(apiService.getWeather().execute().body()?.getJson(),Test::class.java);
+    fun getWeather(): Test? {
+        try {
+            val response = apiService.getWeather().execute()
+            if (response.isSuccessful){
+                return Gson().fromJson(response.body()?.getJson(),Test::class.java)
+            }
+        }catch (e: IOException){}
+        return null
+    }
 
     private fun String.getJson(): String {
         val indexInit = this.indexOf('{')

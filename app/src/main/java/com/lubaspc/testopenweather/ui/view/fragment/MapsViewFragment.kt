@@ -41,11 +41,15 @@ class MapsViewFragment(private val testUseCase: TestUseCase) : Fragment() {
 
     private fun moveMarker() {
         presenter.getLatLng {latLng,test ->
-            if (latLng == null || test == null) return@getLatLng
+            if (latLng == null || test == null) {
+                handle.hideProgress(false)
+                return@getLatLng
+
+            }
             this.test = test
             marker = map.addMarker(MarkerOptions().position(latLng).title(test.name))
             map.moveCamera(CameraUpdateFactory.newLatLng(latLng))
-            handle.hideProgress()
+            handle.hideProgress(true)
         }
     }
 
@@ -67,7 +71,7 @@ class MapsViewFragment(private val testUseCase: TestUseCase) : Fragment() {
 
     interface MapFragmentHandle{
         fun refreshPosition(cb: () -> Unit)
-        fun hideProgress()
+        fun hideProgress(success: Boolean)
         fun clickItem(test: Test)
     }
 }

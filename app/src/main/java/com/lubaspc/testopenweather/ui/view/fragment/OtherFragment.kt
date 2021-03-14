@@ -42,7 +42,7 @@ class OtherFragment(private val testUseCase: TestUseCase) : Fragment() {
                 weathers = it
                 notifyDataSetChanged()
             }
-            handle.hideProgress()
+            handle.hideProgress(true)
         }
     }
 
@@ -51,7 +51,7 @@ class OtherFragment(private val testUseCase: TestUseCase) : Fragment() {
             vBind.rvRequests.adapter = WeathersAdapter(it){test->
                 handle.clickItem(test)
             }
-            handle.hideProgress()
+            handle.hideProgress(true)
         }
     }
 
@@ -59,7 +59,7 @@ class OtherFragment(private val testUseCase: TestUseCase) : Fragment() {
     interface ListFragmentHandle{
         fun clickItem(test: Test)
         fun refreshPosition(cb: () -> Unit)
-        fun hideProgress()
+        fun hideProgress(success: Boolean)
     }
 
 
