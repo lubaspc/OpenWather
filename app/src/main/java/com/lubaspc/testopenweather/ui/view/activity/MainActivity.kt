@@ -12,6 +12,7 @@ import com.lubaspc.testopenweather.ui.presenter.MainActivityPresenter
 import com.lubaspc.testopenweather.ui.view.dialog.WeatherDialog
 import com.lubaspc.testopenweather.ui.view.fragment.ListFragment
 import com.lubaspc.testopenweather.ui.view.fragment.MapsFragment
+import com.lubaspc.testopenweather.utils.FragmentUtils
 import com.lubaspc.testopenweather.utils.addFragment
 import com.lubaspc.testopenweather.utils.replaceFragment
 import javax.inject.Inject
@@ -50,6 +51,10 @@ class MainActivity : AppCompatActivity(), ListFragment.ListFragmentHandle
         setupButtons()
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(Bundle())
+    }
+
     private fun setupButtons() {
         vBind.fbMap.setOnClickListener {
             vBind.showProgress = true
@@ -70,7 +75,7 @@ class MainActivity : AppCompatActivity(), ListFragment.ListFragmentHandle
     }
 
     override fun clickItem(test: Test) {
-        val dialog = WeatherDialog()
+        val dialog = WeatherDialog(test)
         dialog.show(supportFragmentManager, "DIALOG_ITEM")
     }
 
@@ -87,6 +92,8 @@ class MainActivity : AppCompatActivity(), ListFragment.ListFragmentHandle
     override fun hideProgress() {
         vBind.showProgress = false
     }
+
+
 
 
 }

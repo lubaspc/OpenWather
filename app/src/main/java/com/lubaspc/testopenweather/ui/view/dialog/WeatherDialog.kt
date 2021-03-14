@@ -5,20 +5,29 @@ import android.app.AlertDialog
 import android.app.Dialog
 import android.os.Bundle
 import androidx.fragment.app.DialogFragment
+import com.lubaspc.domain.model.Test
+import com.lubaspc.testopenweather.R
+import com.lubaspc.testopenweather.databinding.DialogWeatherBinding
+import com.lubaspc.testopenweather.ui.presenter.DialogWeatherPresenter
+import java.text.DateFormat
 
-class WeatherDialog: DialogFragment(){
+class WeatherDialog(private val test: Test) : DialogFragment(){
 
-    /*@SuppressLint("InflateParams")
+    @SuppressLint("InflateParams")
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val builder =
-            AlertDialog.Builder(activity)
-        vBind = DialogFormPaymentBinding.bind(
+        val builder = AlertDialog.Builder(activity)
+        val vBind = DialogWeatherBinding.bind(
             activity!!.layoutInflater.inflate(
-                R.layout.dialog_form_payment,
+                R.layout.dialog_weather,
                 null
             )
         )
         builder.setView(vBind.root)
-        return builder.create()
-    }*/
+        vBind.testHtml = DialogWeatherPresenter().formatTest(test)
+        return builder.apply {
+            setNegativeButton("Cerrar"){dialog,_->
+                dialog.cancel()
+            }
+        }.create()
+    }
 }

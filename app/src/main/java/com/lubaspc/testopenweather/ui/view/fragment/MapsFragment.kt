@@ -14,6 +14,7 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
+import com.lubaspc.domain.model.Test
 import com.lubaspc.domain.usecase.TestUseCase
 import com.lubaspc.testopenweather.R
 import com.lubaspc.testopenweather.ui.presenter.MapFragmentPresenter
@@ -24,6 +25,7 @@ class MapsFragment(private val testUseCase: TestUseCase) : Fragment() {
     private lateinit var marker: Marker
     private lateinit var presenter: MapFragmentPresenter
     private lateinit var map: GoogleMap
+    private lateinit var test: Test
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -38,9 +40,10 @@ class MapsFragment(private val testUseCase: TestUseCase) : Fragment() {
     ): View? = inflater.inflate(R.layout.fragment_maps, container, false)
 
     private fun moveMarker() {
-        presenter.getLatLng {latLng,title ->
-            if (latLng == null) return@getLatLng
-            marker = map.addMarker(MarkerOptions().position(latLng).title(title))
+        presenter.getLatLng {latLng,test ->
+            if (latLng == null || test == null) return@getLatLng
+            this.test = test
+            marker = map.addMarker(MarkerOptions().position(latLng).title(test.name))
             map.moveCamera(CameraUpdateFactory.newLatLng(latLng))
             handle.hideProgress()
         }
@@ -58,10 +61,15 @@ class MapsFragment(private val testUseCase: TestUseCase) : Fragment() {
         handle.refreshPosition {
             moveMarker()
         }
+        map.setOnMarkerClickListener {
+            handle.clickItem(this.test)
+            false
+        }
     }
 
     interface MapFragmentHandle{
         fun refreshPosition(cb: () -> Unit)
         fun hideProgress()
+        fun clickItem(test: Test)
     }
 }

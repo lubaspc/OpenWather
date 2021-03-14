@@ -12,9 +12,7 @@
         android:id="@+id/cv_weather"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginVertical="8dp"
-        app:cardElevation="5dp">
+        style="@style/ItemCard">
         
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -25,7 +23,7 @@
                 android:id="@+id/tv_created_at"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@{`Consult date: `+test.createdAt.toLocaleString()}"
+                android:text="@{`Día de la consulta: `+test.createdAt.toLocaleString()}"
                 app:layout_constraintTop_toTopOf="parent"/>
 
             <LinearLayout
@@ -41,13 +39,13 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@{`Name: `+ test.name}"
+                    android:text="@{`Ciudad: `+ test.name}"
                     />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@{`Country: `+ test.sys.country}"
+                    android:text="@{`Código del país: `+ test.sys.country}"
                     />
             </LinearLayout>
 
@@ -64,13 +62,13 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@{`wather: `+ test.weather.get(0).main}"
+                    android:text="@{`Clima: `+ test.weather.get(0).main}"
                     />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@{`wather description: `+ test.weather.get(0).main}"
+                    textTemperatureKtoC="@{test.main.temp}"
                     />
 
             </LinearLayout>
