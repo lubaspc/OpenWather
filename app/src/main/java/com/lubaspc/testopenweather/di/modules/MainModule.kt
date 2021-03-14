@@ -23,12 +23,6 @@ class MainModule(private val app: App) {
     @Provides
     @Singleton
     fun provideApplicationContext(): Context? = app
-//
-//    @Provides
-//    @Singleton
-//    fun provideGson(): Gson? {
-//        return Gson()
-//    }
 
     @Provides
     @Singleton
@@ -39,11 +33,9 @@ class MainModule(private val app: App) {
     @Singleton
     fun provideWeatherDBSource() = WeatherDBSource(db.noteDao())
 
-
     @Provides
     @Singleton
     fun provideWeatherApiSource() = WeatherApiSource(APIOpenWeather)
-
 
     @Provides
     @Singleton

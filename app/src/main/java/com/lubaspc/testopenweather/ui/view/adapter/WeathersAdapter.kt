@@ -8,19 +8,20 @@ import com.lubaspc.domain.model.Test
 import com.lubaspc.testopenweather.R
 import com.lubaspc.testopenweather.databinding.ItemRequestBinding
 
-class WeathersAdapter (
+class WeathersAdapter(
     var weathers: List<Test>,
     val click: (Test) -> Unit
-): RecyclerView.Adapter<WeathersAdapter.ViewHolder>(){
-    class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
+) : RecyclerView.Adapter<WeathersAdapter.ViewHolder>() {
+    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var vBind = ItemRequestBinding.bind(itemView)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int)
-            = ViewHolder(
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
+        ViewHolder(
             LayoutInflater
-            .from(parent.context)
-            .inflate(R.layout.item_request,parent,false))
+                .from(parent.context)
+                .inflate(R.layout.item_request, parent, false)
+        )
 
 
     override fun getItemCount() = weathers.size

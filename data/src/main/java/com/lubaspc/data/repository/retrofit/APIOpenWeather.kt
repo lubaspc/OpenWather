@@ -40,7 +40,8 @@ object APIOpenWeather {
         apiService = retrofit.create(OpenWeatherService::class.java)
     }
 
-    fun getWeather(): Test? = Gson().fromJson(apiService.getWeather().execute().body()?.getJson(),Test::class.java);
+    fun getWeather(): Test? =
+        Gson().fromJson(apiService.getWeather().execute().body()?.getJson(),Test::class.java);
 
     private fun String.getJson(): String {
         val indexInit = this.indexOf('{')

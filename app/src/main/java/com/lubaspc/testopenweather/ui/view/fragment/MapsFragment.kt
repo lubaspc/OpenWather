@@ -58,9 +58,7 @@ class MapsFragment(private val testUseCase: TestUseCase) : Fragment() {
     private val callback = OnMapReadyCallback { googleMap ->
         map = googleMap
         moveMarker()
-        handle.refreshPosition {
-            moveMarker()
-        }
+        handle.refreshPosition(this::moveMarker)
         map.setOnMarkerClickListener {
             handle.clickItem(this.test)
             false

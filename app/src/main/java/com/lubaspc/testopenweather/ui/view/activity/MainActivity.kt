@@ -3,6 +3,7 @@ package com.lubaspc.testopenweather.ui.view.activity
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import com.lubaspc.domain.model.Test
 import com.lubaspc.domain.usecase.TestUseCase
 import com.lubaspc.testopenweather.App
@@ -12,7 +13,6 @@ import com.lubaspc.testopenweather.ui.presenter.MainActivityPresenter
 import com.lubaspc.testopenweather.ui.view.dialog.WeatherDialog
 import com.lubaspc.testopenweather.ui.view.fragment.ListFragment
 import com.lubaspc.testopenweather.ui.view.fragment.MapsFragment
-import com.lubaspc.testopenweather.utils.FragmentUtils
 import com.lubaspc.testopenweather.utils.addFragment
 import com.lubaspc.testopenweather.utils.replaceFragment
 import javax.inject.Inject
@@ -23,15 +23,15 @@ class MainActivity : AppCompatActivity(), ListFragment.ListFragmentHandle
     private val TAG_MAP = "TAG_MAP"
     private val TAG_LIST = "TAG_LIST"
 
-    private lateinit var vBind: ActivityMainBinding
     @Inject
     lateinit var testUseCase: TestUseCase
 
-    private lateinit var mapFragment: MapsFragment
-    private lateinit var listFragment: ListFragment
-
     private lateinit var presenter: MainActivityPresenter
 
+    private lateinit var vBind: ActivityMainBinding
+
+    private lateinit var mapFragment: MapsFragment
+    private lateinit var listFragment: ListFragment
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -57,27 +57,25 @@ class MainActivity : AppCompatActivity(), ListFragment.ListFragmentHandle
 
     private fun setupButtons() {
         vBind.fbMap.setOnClickListener {
-            vBind.showProgress = true
-            vBind.flContainer.replaceFragment(
-                supportFragmentManager.beginTransaction(),
-                mapFragment,
-                TAG_MAP
-            )
+            changeFragment(mapFragment)
         }
         vBind.fbList.setOnClickListener {
-            vBind.showProgress = true
-            vBind.flContainer.replaceFragment(
-                supportFragmentManager.beginTransaction(),
-                listFragment,
-                TAG_LIST
-            )
+            changeFragment(listFragment)
         }
     }
 
-    override fun clickItem(test: Test) {
-        val dialog = WeatherDialog(test)
-        dialog.show(supportFragmentManager, "DIALOG_ITEM")
+    private fun changeFragment(fragment: Fragment){
+        vBind.showProgress = true
+        vBind.flContainer.replaceFragment(
+            supportFragmentManager.beginTransaction(),
+            fragment,
+            TAG_LIST
+        )
     }
+
+    override fun clickItem(test: Test) =
+        WeatherDialog(test).show(supportFragmentManager, "DIALOG_ITEM")
+
 
     override fun refreshPosition(cb: () -> Unit) {
         vBind.fbReload.setOnClickListener {

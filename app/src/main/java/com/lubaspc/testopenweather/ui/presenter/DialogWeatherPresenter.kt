@@ -30,6 +30,5 @@ class DialogWeatherPresenter {
                 "<b>Sensación atmosférica:</b> ${test.main.pressure} <br>" +
                 "</p>"
 
-    private fun getCelsius(kelvin: Double) =
-        Math.round(kelvin - 273.15)
+    private fun getCelsius(kelvin: Double) = Math.round(kelvin - 273.15)
 }

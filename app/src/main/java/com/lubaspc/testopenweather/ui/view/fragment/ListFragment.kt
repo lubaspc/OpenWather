@@ -32,9 +32,7 @@ class ListFragment(private val testUseCase: TestUseCase) : Fragment() {
         vBind = FragmentListBinding.inflate(inflater,container,false)
         vBind.rvRequests.init(context!!)
         recyclerAdapter()
-        handle.refreshPosition {
-            refreshData()
-        }
+        handle.refreshPosition(this::refreshData)
         return vBind.root
     }
 

@@ -11,17 +11,16 @@ import javax.inject.Inject
 class TestRepository(
     @Inject private val weatherDBSource: WeatherDBSource,
     @Inject private val weatherApiSource: WeatherApiSource
-): TestUseCase.TestSource {
+) : TestUseCase.TestSource {
 
-    override fun getTestList(): List<Test> {
-        return weatherDBSource.getTestList()
-    }
+    override fun getTestList(): List<Test> =
+        weatherDBSource.getTestList()
 
-    override fun getTest(): Test? {
-        val test = weatherApiSource.getNewTest() ?: return null
-        weatherDBSource.insertTest(test.toString())
-        return test.toTestDomain()
-    }
+
+    override fun getTest(): Test? =
+        weatherApiSource.getNewTest().apply {
+            weatherDBSource.insertTest(this.toString())
+        }?.toTestDomain()
 
     override fun getTestLast(): Test? =
         weatherDBSource.getLastWeather()

@@ -9,6 +9,7 @@ import com.lubaspc.testopenweather.ui.view.activity.MainActivity
 class App : Application() {
 
     private lateinit var mainComponent: MainComponent
+
     override fun onCreate() {
         super.onCreate()
         mainComponent = DaggerMainComponent
