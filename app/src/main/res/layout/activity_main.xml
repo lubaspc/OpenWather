@@ -7,7 +7,12 @@
         <variable
             name="showProgress"
             type="java.lang.Boolean" />
+        <variable
+            name="fragment"
+            type="com.lubaspc.testopenweather.utils.FragmentEnum" />
+
         <import type="android.view.View"/>
+        <import type="com.lubaspc.testopenweather.utils.FragmentEnum"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -27,6 +32,7 @@
             android:src="@drawable/ic_baseline_map"
             app:layout_constraintHorizontal_chainStyle="spread"
             android:layout_marginBottom="24dp"
+            fbIsEnable="@{fragment != FragmentEnum.MAPS}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/fb_list"
             app:layout_constraintStart_toStartOf="parent" />
@@ -35,6 +41,7 @@
             android:id="@+id/fb_list"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            fbIsEnable="@{fragment != FragmentEnum.LIST}"
             android:src="@drawable/ic_baseline_format_list"
             app:layout_constraintBottom_toBottomOf="@id/fb_map"
             app:layout_constraintStart_toEndOf="@id/fb_map"

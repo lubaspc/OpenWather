@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.lubaspc.domain.model.Test
 import com.lubaspc.domain.usecase.TestUseCase
 import com.lubaspc.testopenweather.App
@@ -13,6 +14,7 @@ import com.lubaspc.testopenweather.ui.presenter.MainActivityPresenter
 import com.lubaspc.testopenweather.ui.view.dialog.WeatherDialog
 import com.lubaspc.testopenweather.ui.view.fragment.ListFragment
 import com.lubaspc.testopenweather.ui.view.fragment.MapsFragment
+import com.lubaspc.testopenweather.utils.FragmentEnum
 import com.lubaspc.testopenweather.utils.addFragment
 import com.lubaspc.testopenweather.utils.replaceFragment
 import javax.inject.Inject
@@ -20,8 +22,6 @@ import javax.inject.Inject
 class MainActivity : AppCompatActivity(), ListFragment.ListFragmentHandle
     , MapsFragment.MapFragmentHandle {
 
-    private val TAG_MAP = "TAG_MAP"
-    private val TAG_LIST = "TAG_LIST"
 
     @Inject
     lateinit var testUseCase: TestUseCase
@@ -44,10 +44,11 @@ class MainActivity : AppCompatActivity(), ListFragment.ListFragmentHandle
         listFragment = ListFragment(testUseCase)
         presenter = MainActivityPresenter(testUseCase)
 
+        vBind.fragment = FragmentEnum.MAPS
         vBind.flContainer.addFragment(
             supportFragmentManager.beginTransaction(),
             mapFragment,
-            TAG_MAP)
+            FragmentEnum.MAPS.name)
         setupButtons()
     }
 
@@ -57,19 +58,21 @@ class MainActivity : AppCompatActivity(), ListFragment.ListFragmentHandle
 
     private fun setupButtons() {
         vBind.fbMap.setOnClickListener {
-            changeFragment(mapFragment)
+            vBind.fragment = FragmentEnum.MAPS
+            changeFragment(mapFragment,FragmentEnum.MAPS.name)
         }
         vBind.fbList.setOnClickListener {
-            changeFragment(listFragment)
+            vBind.fragment = FragmentEnum.LIST
+            changeFragment(listFragment,FragmentEnum.LIST.name)
         }
     }
 
-    private fun changeFragment(fragment: Fragment){
+    private fun changeFragment(fragment: Fragment,tag:String){
         vBind.showProgress = true
         vBind.flContainer.replaceFragment(
             supportFragmentManager.beginTransaction(),
             fragment,
-            TAG_LIST
+            tag
         )
     }
 
